@@ -15,7 +15,13 @@ class UserController extends Controller
      */
     public function index()
     {
-        return User::all();
+      
+        if(request()->deleted === 1){
+            $user = User::onlyTrashed()->get();;
+        }else{
+            $user = User::all();
+        }
+        return $user;
     }
     /**
      * 
